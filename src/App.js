@@ -58,16 +58,21 @@ const  App = () =>{
     setCurrentNote({})
   }
 
-  const replaceNote = async currNote =>{
-     try {
-      await fetch(
-         `https://notes-a5350-default-rtdb.firebaseio.com/notes.json/${currNote[0]}`,
-         { method: "PUT", body: JSON.stringify(currNote[1]) }
-       );
-       getNotes();
-     } catch (err) {
-       console.err(err);
-     }
+  //pass in note to be replaced
+  // find it in current array
+  //update that object with new values
+  const replaceNote = currNote =>{
+    console.log(currNote)
+    console.log(currentNote)
+    //  try {
+    //   await fetch(
+    //      `https://notes-a5350-default-rtdb.firebaseio.com/notes.json/${currNote[0]}`,
+    //      { method: "PUT", body: JSON.stringify(currNote[1]) }
+    //    );
+    //    getNotes();
+    //  } catch (err) {
+    //    console.err(err);
+    //  }
   }
 
   const showNote = id => {
@@ -76,13 +81,15 @@ const  App = () =>{
     setCurrentNote(showNote)
   }
 
-  //doesnt work currently
-  // need to find way to delete specific node
+
+  //filter array from node to be deleted
+  //put new array in databse
+  //dont actually need to delete
   const deleteNote = async id =>{
-      let delNote = notes.find((note) => note.id === id);
+      let delNote = notes.filter((note) => note.id !== id);
     try{
       await fetch(`https://notes-a5350-default-rtdb.firebaseio.com/notes.json`,
-      {method: 'DELETE', body: JSON.stringify(delNote)})
+      {method: 'PUT', body: JSON.stringify(delNote)})
       getNotes()
     } catch(err){
       console.error(err)

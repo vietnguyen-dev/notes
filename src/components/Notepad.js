@@ -7,7 +7,7 @@ const NoteForm = styled.form`
 `
 
 const Pad = styled.textarea`
-    height: 100vh;
+    height: 90vh;
     padding: 5%;
     background-color: #1E1E1E;
     color: white;
@@ -33,6 +33,7 @@ const Notepad = ({note, action, addNote, replaceNote}) => {
 
     const settingNote =(e) =>{
         setNote(e.target.value)
+        console.log(currentNote)
     }
 
     const noteSubmit = (e) =>{
@@ -48,7 +49,13 @@ const Notepad = ({note, action, addNote, replaceNote}) => {
                 addNote(newNote)
                 break;
             case 'replace':
-                console.log('hello')
+                 let replacing = {
+                    id: note.id,
+                    title: currentNote.slice(0, 50),
+                    text: currentNote,
+                    currentdate: new Date().toDateString(),
+                 };
+                replaceNote(replacing);
                 break;
             default:
                 console.error(`invalid action type: ${action}`)
