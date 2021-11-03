@@ -9,7 +9,7 @@ const SavedContainer = styled.div`
     padding: 2% 3%;
 `
 
-const Saved = ({saved, showNote}) => {
+const Saved = ({saved, showNote, deleteNote}) => {
     return (
         <SavedContainer>
             {saved.map(note => 
@@ -18,8 +18,8 @@ const Saved = ({saved, showNote}) => {
                     id={note.id}
                     title={note.title}
                     text={note.text}
-                    date={note.currentdate}
                     showNote={showNote}
+                    deleteNote={deleteNote}
                 />    
             )}
         </SavedContainer>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const NoteForm = styled.form`
@@ -13,29 +13,50 @@ const Pad = styled.textarea`
     color: white;
 `
 
-const Notepad = (props) => {
-    const [note, setNote] = useState(props.note)
+const Save = styled.button`
+    background-color: #1E1E1E;
+    color: white;
+    border-left: 1px solid grey;
+
+    :hover{
+        background-color: orange;
+        color: black;
+    }
+`;
+
+const Notepad = ({note, action, addNote, replaceNote}) => {
+    const [currentNote, setNote] = useState('')
+
+    const settingNote =(e) =>{
+        setNote(e.target.value)
+    }
 
     const noteSubmit = (e) =>{
         e.preventDefault()
-
-        if (note){
-            let newNote = {
-                id: 1,
-                title: note.slice(0, 50),
-                text: note
-            }
-    
-            props.addNote(newNote)
+     
+        switch(action){
+            case 'add':
+                let newNote = {
+                    title: currentNote.slice(0, 50),
+                    text: currentNote,
+                    currentdate: new Date().toDateString(),
+                };
+                addNote(newNote)
+                break;
+            case 'replace':
+                console.log('hello')
+                break;
+            default:
+                console.error(`invalid action type: ${action}`)
         } 
     }
 
     return (
-            <NoteForm onSubmit={noteSubmit}>
-                <Pad value={note.text} onChange={(e) => setNote(e.target.value)}/>
-                <button type='submit'>Save</button>
-            </NoteForm>
-    )
+      <NoteForm onSubmit={noteSubmit}>
+        <Pad value={currentNote.text} onChange={settingNote} />
+        <Save type="submit">SAVE</Save>
+      </NoteForm>
+    );
 }
 
 export default Notepad

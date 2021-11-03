@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
+import write from '../img/notepad-32.png'
 
 const NoteMenu = styled.ul`
     margin-left: 20%;
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     list-style-type: none;
 `
 
@@ -15,11 +15,11 @@ const MenuContainer = styled.div`
     color: white;
 `
 
-const Menu = () => {
+const Menu = ({newNote}) => {
     return (
         <MenuContainer>
             <NoteMenu>
-                <li>ADD</li>
+                <li onClick={() => newNote()}><img src={write} alt='write new note'/></li>
                 <li>DEL</li>
             </NoteMenu>
         </MenuContainer>
