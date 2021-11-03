@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const NoteForm = styled.form`
@@ -25,7 +25,11 @@ const Save = styled.button`
 `;
 
 const Notepad = ({note, action, addNote, replaceNote}) => {
-    const [currentNote, setNote] = useState('')
+    const [currentNote, setNote] = useState(note)
+
+    useEffect(() =>{
+        setNote(note)
+    }, [note])
 
     const settingNote =(e) =>{
         setNote(e.target.value)

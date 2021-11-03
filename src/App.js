@@ -91,7 +91,7 @@ const  App = () =>{
 
   return (
     <>
-     <Menu newNote={setNewNote}/>
+    <Menu newNote={setNewNote}/>
     <div className="App">
       <Saved saved={notes} showNote={showNote} deleteNote={deleteNote}/>
       <Notepad note={currentNote} action={action} addNote={addNote} replaceNote={replaceNote}/>
