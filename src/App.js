@@ -6,7 +6,7 @@ import Menu from './components/Menu'
 
 const  App = () =>{
   const [notes, setNotes] = useState([])
-  const [currentNote, setCurrentNote] = useState({})
+  const [currentNote, setCurrentNote] = useState("s")
   const [action, setActionType] = useState("add")
 
   const getNotes = async () => {
@@ -55,24 +55,27 @@ const  App = () =>{
 
   const setNewNote = () =>{
     setActionType('add')
-    setCurrentNote({})
+    setCurrentNote("")
   }
 
   //pass in note to be replaced
-  // find it in current array
-  //update that object with new values
-  const replaceNote = currNote =>{
-    console.log(currNote)
-    console.log(currentNote)
-    //  try {
-    //   await fetch(
-    //      `https://notes-a5350-default-rtdb.firebaseio.com/notes.json/${currNote[0]}`,
-    //      { method: "PUT", body: JSON.stringify(currNote[1]) }
-    //    );
-    //    getNotes();
-    //  } catch (err) {
-    //    console.err(err);
-    //  }
+  const replaceNote = async currNote =>{
+    // find it out from current array
+    let oldNoteRemoved = notes.filter((note) => note.id !== currNote.id);
+
+    //update notes with new values
+    let addReplacement = [...oldNoteRemoved, currNote];
+
+    //send to database
+    try {
+      await fetch(
+        `https://notes-a5350-default-rtdb.firebaseio.com/notes.json/`,
+        { method: "PUT", body: JSON.stringify(addReplacement) }
+      );
+      getNotes();
+    } catch (err) {
+      console.err(err);
+    }
   }
 
   const showNote = id => {
@@ -81,10 +84,6 @@ const  App = () =>{
     setCurrentNote(showNote)
   }
 
-
-  //filter array from node to be deleted
-  //put new array in databse
-  //dont actually need to delete
   const deleteNote = async id =>{
       let delNote = notes.filter((note) => note.id !== id);
     try{

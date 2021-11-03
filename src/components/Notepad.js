@@ -33,7 +33,6 @@ const Notepad = ({note, action, addNote, replaceNote}) => {
 
     const settingNote =(e) =>{
         setNote(e.target.value)
-        console.log(currentNote)
     }
 
     const noteSubmit = (e) =>{
