@@ -1,33 +1,42 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 const SaveItem = styled.div`
-    margin: 5% 7%;
-    padding: 3%;
-    border-bottom: 1px solid grey;
-    display: grid;
-    grid-template-columns: 80% 20%;
+  padding: 8% 5% 8% 5%;
+  border-bottom: 0.5px solid rgba(211, 211, 211, 0.2);
+`;
+
+const SaveHead = styled.h3`
+  font-size: 120%;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
 `
 
-const SavedNote = ({title, id, text, showNote, deleteNote}) => {
-    const [options, showOptions] = useState(false)
+const SaveText = styled.p`
+  color: #d3d3d3;
+  margin-top: 1%;
+`;
+
+const SavedNote = ({title, id, text, showNote}) => {
+    const [current, setCurrent] = useState(false)
+
+    let shortenTitle = title.length >20 ? `${title.slice(0, 20)}...` : title
+    let shortenText = text.length > 30 ? `${text.slice(0, 30)}...` : text
+
+    useEffect(() =>{
+      setCurrent(false)
+    }, [])
+
+    const setCurrentNote = () =>{
+      showNote(id)
+      setCurrent(true)
+    }
 
     return (
-      <SaveItem onClick={() => showNote(id)}>
-        <div>
-          <h3>{title}</h3>
-          <p>{text}</p>
-        </div>
-        <div>
-          {options ? (
-            <>
-              <button onClick={() => showNote(id)}>SHOW</button>
-              <button onClick={() => deleteNote(id)}>X</button>
-            </>
-          ) : (
-            <button onClick={() => showOptions(!options)}>...</button>
-          )}
-        </div>
+      <SaveItem onClick={setCurrentNote} className={`${current && `current`}`}>
+          <SaveHead>{shortenTitle}</SaveHead>
+          <SaveText>{shortenText}</SaveText>
       </SaveItem>
     );
 }

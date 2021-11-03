@@ -22,8 +22,22 @@ li{
 
 textarea{
   resize: none;
+   border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+
 }
 
 img{
   width: 75%;
+}
+
+.current{
+  background-color: orange;
+  border-radius: 15px;
+  opacity: .6;
 }

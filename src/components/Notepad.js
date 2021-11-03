@@ -8,7 +8,7 @@ const NoteForm = styled.form`
 
 const Pad = styled.textarea`
     height: 90vh;
-    padding: 5%;
+    padding: 2% 5%;
     background-color: #1E1E1E;
     color: white;
 `
@@ -24,6 +24,13 @@ const Save = styled.button`
     }
 `;
 
+const CurrentDate = styled.p`
+  color: #d3d3d3;
+  text-align: center;
+  background-color: #1e1e1e;
+  padding: 2%;
+`;
+
 const Notepad = ({note, action, addNote, replaceNote}) => {
     const [currentNote, setNote] = useState(note)
 
@@ -32,7 +39,7 @@ const Notepad = ({note, action, addNote, replaceNote}) => {
     }, [note])
 
     const settingNote =(e) =>{
-        setNote(e.target.value)
+        setNote(e.target.value) 
     }
 
     const noteSubmit = (e) =>{
@@ -62,10 +69,13 @@ const Notepad = ({note, action, addNote, replaceNote}) => {
     }
 
     return (
-      <NoteForm onSubmit={noteSubmit}>
-        <Pad value={currentNote.text} onChange={settingNote} />
-        <Save type="submit">SAVE</Save>
-      </NoteForm>
+      <div>
+        <CurrentDate>{note.currentdate}</CurrentDate>
+        <NoteForm onSubmit={noteSubmit}>
+          <Pad value={currentNote.text} onChange={settingNote} />
+          <Save type="submit">SAVE</Save>
+        </NoteForm>
+      </div>
     );
 }
 

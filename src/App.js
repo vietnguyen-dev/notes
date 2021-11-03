@@ -1,20 +1,26 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+// import Layout from './components/Layout';
+// import Folders from './components/Folders';
 import Notepad from './components/Notepad';
 import Saved from './components/Saved';
 import Menu from './components/Menu'
 
 const  App = () =>{
   const [notes, setNotes] = useState([])
-  const [currentNote, setCurrentNote] = useState("s")
+  const [currentNote, setCurrentNote] = useState("")
   const [action, setActionType] = useState("add")
+
+  useEffect(() => {
+    getNotes();
+  }, []);
 
   const getNotes = async () => {
     try {
       const res = await fetch(
         `https://notes-a5350-default-rtdb.firebaseio.com/notes.json`
-      );
-      const data = await res.json();
+      )
+      const data = await res.json()
 
       let notesArr = [];
 
@@ -24,7 +30,7 @@ const  App = () =>{
           title: data[key].title,
           text: data[key].text,
           currentdate: data[key].currentdate,
-        });
+        })
       }
 
       let reverseArr = notesArr.reverse()
@@ -35,9 +41,6 @@ const  App = () =>{
     }
   };
 
-  useEffect(() =>{
-   getNotes()
-  }, [])
 
   const addNote = async newNote =>{
     try{  
@@ -97,11 +100,19 @@ const  App = () =>{
 
   return (
     <>
-    <Menu newNote={setNewNote}/>
-    <div className="App">
-      <Saved saved={notes} showNote={showNote} deleteNote={deleteNote}/>
-      <Notepad note={currentNote} action={action} addNote={addNote} replaceNote={replaceNote}/>
-    </div>
+      {/* <Folders /> */}
+      <div>
+        <Menu newNote={setNewNote} />
+        <div className="App">
+          <Saved saved={notes} showNote={showNote} deleteNote={deleteNote} />
+          <Notepad
+            note={currentNote}
+            action={action}
+            addNote={addNote}
+            replaceNote={replaceNote}
+          />
+        </div>
+      </div>
     </>
   );
 }

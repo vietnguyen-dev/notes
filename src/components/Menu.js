@@ -9,11 +9,11 @@ const NoteMenu = styled.ul`
 `
 
 const MenuContainer = styled.div`
-    padding: 1% 1%;
-    background-color: #342820;
-    opacity: .9;
-    color: white;
-`
+  padding: 1% 1%;
+  background-color: #160804;
+  opacity: 0.9;
+  color: white;
+`;
 
 const Menu = ({newNote}) => {
     return (

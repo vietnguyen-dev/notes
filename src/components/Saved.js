@@ -3,11 +3,11 @@ import SavedNote from './SavedNote'
 import styled from 'styled-components'
 
 const SavedContainer = styled.div`
-    background-color: #342820;
-    opacity: .9;
-    color: white;
-    padding: 2% 3%;
-`
+  background-color: #160804;
+  opacity: 0.9;
+  color: white;
+  padding: 0% 10% 0% 10%;
+`;
 
 const Saved = ({saved, showNote, deleteNote}) => {
     return (
