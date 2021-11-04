@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 const SaveItem = styled.div`
@@ -18,19 +18,13 @@ const SaveText = styled.p`
   margin-top: 1%;
 `;
 
-const SavedNote = ({title, id, text, showNote}) => {
-    const [current, setCurrent] = useState(false)
-
+const SavedNote = ({title, id, text, current, showNote}) => {
     let shortenTitle = title.length >20 ? `${title.slice(0, 20)}...` : title
     let shortenText = text.length > 30 ? `${text.slice(0, 30)}...` : text
 
-    useEffect(() =>{
-      setCurrent(false)
-    }, [])
 
     const setCurrentNote = () =>{
       showNote(id)
-      setCurrent(true)
     }
 
     return (

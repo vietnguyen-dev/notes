@@ -58,7 +58,11 @@ const  App = () =>{
 
   const setNewNote = () =>{
     setActionType('add')
-    setCurrentNote("")
+    setCurrentNote({
+      title: "",
+      text: "",
+      currentdate: new Date().toDateString(),
+    });
   }
 
   //pass in note to be replaced
@@ -104,7 +108,7 @@ const  App = () =>{
       <div>
         <Menu newNote={setNewNote} />
         <div className="App">
-          <Saved saved={notes} showNote={showNote} deleteNote={deleteNote} />
+          <Saved saved={notes} currentNote={currentNote} showNote={showNote} deleteNote={deleteNote} />
           <Notepad
             note={currentNote}
             action={action}

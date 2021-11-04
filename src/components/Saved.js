@@ -9,10 +9,21 @@ const SavedContainer = styled.div`
   padding: 0% 10% 0% 10%;
 `;
 
-const Saved = ({saved, showNote, deleteNote}) => {
+const Saved = ({saved, currentNote, showNote, deleteNote}) => {
+    
+    let savedWithCurrent = saved.map(note => {
+        if (note.id === currentNote.id){
+            note.current= true
+            return note
+        } else{
+            note.current = false
+             return note;
+        }
+    })
+
     return (
         <SavedContainer>
-            {saved.map(note => 
+            {savedWithCurrent.map(note => 
                 <SavedNote  
                     key={note.id}
                     id={note.id}
@@ -20,6 +31,7 @@ const Saved = ({saved, showNote, deleteNote}) => {
                     text={note.text}
                     showNote={showNote}
                     deleteNote={deleteNote}
+                    current={note.current}
                 />    
             )}
         </SavedContainer>
