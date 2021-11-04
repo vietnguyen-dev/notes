@@ -7,7 +7,7 @@ const NoteForm = styled.form`
 `
 
 const Pad = styled.textarea`
-    height: 90vh;
+    height: 93vh;
     padding: 1% 5% 0% 5%;
     line-height: 2;
     background-color: #1E1E1E;
@@ -71,7 +71,7 @@ const Notepad = ({note, action, addNote, replaceNote}) => {
 
     return (
       <div>
-        <CurrentDate>{note.currentdate}</CurrentDate>
+        <CurrentDate>{currentNote.currentdate}</CurrentDate>
         <NoteForm onSubmit={noteSubmit}>
           <Pad value={currentNote.text} onChange={settingNote} />
           <Save type="submit">SAVE</Save>

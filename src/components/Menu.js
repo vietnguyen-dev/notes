@@ -10,7 +10,7 @@ const NoteMenu = styled.ul`
 `
 
 const MenuContainer = styled.div`
-  padding: 1% 1%;
+  padding: 1%;
   background-color: #160804;
   opacity: 0.9;
   color: white;

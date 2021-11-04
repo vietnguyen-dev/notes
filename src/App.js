@@ -6,6 +6,8 @@ import Notepad from './components/Notepad';
 import Saved from './components/Saved';
 import Menu from './components/Menu'
 
+let firstInit = false
+
 const  App = () =>{
   const [notes, setNotes] = useState([])
   const [currentNote, setCurrentNote] = useState({
@@ -17,7 +19,22 @@ const  App = () =>{
 
   useEffect(() => {
     getNotes();
-  }, []);
+  }, [])
+
+  useEffect(() =>{
+    if (firstInit === true){
+      //checks for when theres nothing in notes
+      if (notes.length === 0){
+        setCurrentNote({
+          title: "",
+          text: "",
+          currentdate: new Date().toDateString(),
+        })
+      } else {
+       setCurrentNote(notes[0]);
+      }
+    }
+  }, [notes])
 
   const getNotes = async () => {
     try {
@@ -37,9 +54,9 @@ const  App = () =>{
         })
       }
       
-      //so that most recent note is on top
-      let reverseArr = notesArr.reverse()
-      setNotes(reverseArr);
+      setNotes(notesArr);
+      setActionType('replace')
+      firstInit = true
     } catch (err) {
       console.error(err);
     }
@@ -47,11 +64,13 @@ const  App = () =>{
 
 
   const addNote = async newNote =>{
+    let newNoteList = [newNote, ...notes]
+
     try{  
       await fetch(
         `https://notes-a5350-default-rtdb.firebaseio.com/notes.json`,
-        { method: 'POST',
-          body: JSON.stringify(newNote)
+        { method: 'PUT',
+          body: JSON.stringify(newNoteList)
         }
       );
       getNotes()
@@ -75,7 +94,7 @@ const  App = () =>{
     let oldNoteRemoved = notes.filter((note) => note.id !== currNote.id);
 
     //update notes with new values
-    let addReplacement = [...oldNoteRemoved, currNote];
+    let addReplacement = [currNote, ...oldNoteRemoved];
 
     //send to database
     try {
@@ -96,7 +115,9 @@ const  App = () =>{
   }
 
   const deleteNote = async () =>{
-      let delNote = notes.filter((note) => note.id !== currentNote.id);
+    //instead of deleting specific note, just filter out from all notes then put back
+    let delNote = notes.filter((note) => note.id !== currentNote.id);
+    
     try{
       await fetch(`https://notes-a5350-default-rtdb.firebaseio.com/notes.json`,
       {method: 'PUT', body: JSON.stringify(delNote)})
@@ -109,10 +130,10 @@ const  App = () =>{
   return (
     <>
       {/* <Folders /> */}
-      <div>
+      {/* <div> */}
         <Menu newNote={setNewNote} delNote={deleteNote}/>
         <div className="App">
-          <Saved saved={notes} currentNote={currentNote} showNote={showNote} deleteNote={deleteNote} />
+          <Saved saved={notes} currentNote={currentNote} showNote={showNote} />
           <Notepad
             note={currentNote}
             action={action}
@@ -120,7 +141,7 @@ const  App = () =>{
             replaceNote={replaceNote}
           />
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }
