@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import write from '../img/notepad-32.png'
+import del from '../img/delete-32.png'
 
 const NoteMenu = styled.ul`
-    margin-left: 20%;
+    margin-left: 12%;
     display: flex;
     list-style-type: none;
 `
@@ -15,15 +16,17 @@ const MenuContainer = styled.div`
   color: white;
 `;
 
-const Menu = ({newNote}) => {
+const Menu = ({newNote, delNote}) => {
     return (
-        <MenuContainer>
-            <NoteMenu>
-                <li onClick={() => newNote()}><img src={write} alt='write new note'/></li>
-                <li>DEL</li>
-            </NoteMenu>
-        </MenuContainer>
-    )
+      <MenuContainer>
+        <NoteMenu>
+          <li onClick={() => delNote()}><img src={del} alt="delete current item"/></li>
+          <li onClick={() => newNote()}>
+            <img src={write} alt="write new note" />
+          </li>
+        </NoteMenu>
+      </MenuContainer>
+    );
 }
 
 export default Menu

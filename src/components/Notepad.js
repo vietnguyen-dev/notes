@@ -8,7 +8,8 @@ const NoteForm = styled.form`
 
 const Pad = styled.textarea`
     height: 90vh;
-    padding: 2% 5%;
+    padding: 1% 5% 0% 5%;
+    line-height: 2;
     background-color: #1E1E1E;
     color: white;
 `
@@ -28,7 +29,7 @@ const CurrentDate = styled.p`
   color: #d3d3d3;
   text-align: center;
   background-color: #1e1e1e;
-  padding: 2%;
+  padding: 1%;
 `;
 
 const Notepad = ({note, action, addNote, replaceNote}) => {

@@ -8,7 +8,11 @@ import Menu from './components/Menu'
 
 const  App = () =>{
   const [notes, setNotes] = useState([])
-  const [currentNote, setCurrentNote] = useState("")
+  const [currentNote, setCurrentNote] = useState({
+      title: "",
+      text: "",
+      currentdate: new Date().toDateString(),
+    })
   const [action, setActionType] = useState("add")
 
   useEffect(() => {
@@ -32,9 +36,9 @@ const  App = () =>{
           currentdate: data[key].currentdate,
         })
       }
-
+      
+      //so that most recent note is on top
       let reverseArr = notesArr.reverse()
-
       setNotes(reverseArr);
     } catch (err) {
       console.error(err);
@@ -91,8 +95,8 @@ const  App = () =>{
     setCurrentNote(showNote)
   }
 
-  const deleteNote = async id =>{
-      let delNote = notes.filter((note) => note.id !== id);
+  const deleteNote = async () =>{
+      let delNote = notes.filter((note) => note.id !== currentNote.id);
     try{
       await fetch(`https://notes-a5350-default-rtdb.firebaseio.com/notes.json`,
       {method: 'PUT', body: JSON.stringify(delNote)})
@@ -106,7 +110,7 @@ const  App = () =>{
     <>
       {/* <Folders /> */}
       <div>
-        <Menu newNote={setNewNote} />
+        <Menu newNote={setNewNote} delNote={deleteNote}/>
         <div className="App">
           <Saved saved={notes} currentNote={currentNote} showNote={showNote} deleteNote={deleteNote} />
           <Notepad

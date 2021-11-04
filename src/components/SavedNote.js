@@ -14,7 +14,7 @@ const SaveHead = styled.h3`
 `
 
 const SaveText = styled.p`
-  color: #d3d3d3;
+  color: white;
   margin-top: 1%;
 `;
 

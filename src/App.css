@@ -37,7 +37,7 @@ img{
 }
 
 .current{
-  background-color: orange;
-  border-radius: 15px;
-  opacity: .6;
+  background-color: #cc5500;
+  border-radius: 10px;
+  color: white;
 }
